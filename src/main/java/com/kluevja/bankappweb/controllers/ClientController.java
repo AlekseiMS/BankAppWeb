@@ -19,6 +19,7 @@ public class ClientController {
 
     @PostMapping("/create")
     public ModelAndView create(@ModelAttribute Client client, RedirectAttributes model) {
+       // if (client.getRole().getSystemName().equals("ADMIN"))
 
         if (clientService.createClient(client)) {
             model.addFlashAttribute("msg", "Пользователь успешно создан");
