@@ -17,10 +17,14 @@ public class AccountService {
     private ClientRepository clientRepository;
     @Autowired
     private AccountRepository accountRepository;
-    public boolean createAccount(Account account,Long clientId) {
+    public boolean createAccount(Long clientId) {
+        Account account = new Account();
         account.setBalans(0);
-        accountRepository.save(account);//Сохранит в БД счет с нулувым балансом
+
+
         Client clientForEdit = clientRepository.getById(clientId);
+        account.setName("Счет" + clientForEdit.getName());
+        accountRepository.save(account);//Сохранит в БД счет с нулувым балансом
         clientForEdit.getAccounts().add(accountRepository.findTopByOrderByIdDesc());
         clientRepository.save(clientForEdit);
         return true;
