@@ -7,6 +7,7 @@ import com.kluevja.bankappweb.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -18,6 +19,7 @@ public class ClientService {
     public boolean createClient(Client client) {
         Role roleForNewClient =roleRepository.findBySystemName("USER");
         client.setRole(roleForNewClient);
+        client.setAccounts(new ArrayList<>());
         clientRepository.save(client);
         return true;
     }
