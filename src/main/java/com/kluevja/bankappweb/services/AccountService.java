@@ -9,6 +9,8 @@ import com.kluevja.bankappweb.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,9 +32,13 @@ public class AccountService {
         return true;
     }
 
-    public Optional<Account> getClient(Long id) {
-
+    public Optional<Account> getAccount(Long id) {
         return accountRepository.findById(id);
+    }
+    public List<Account> getAccountList(Long id){
+        Client client = clientRepository.findById(id).get();
+        //System.out.println(client.getAccounts());
+        return client.getAccounts();//new ArrayList<Account>();
     }
 
     public boolean updateAccount(Client client) {

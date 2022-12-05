@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller// Controller
+@Controller //RestController для проверки в постман и поменять на стринг
 @RequestMapping("/account")
 
 public class AccountController {
@@ -25,8 +25,14 @@ public class AccountController {
     }
     @GetMapping("/get")
     public ModelAndView get (@RequestParam Long id, RedirectAttributes model) {
+        model.addFlashAttribute("account", accountService.getAccount(id));
         return  new ModelAndView("redirect:/account");
 
+    }
+    @GetMapping("/getAccountList")
+    public  ModelAndView getAccountList(@RequestParam Long id, RedirectAttributes model){
+        model.addFlashAttribute("acountList", accountService.getAccountList(id));
+        return new ModelAndView("redirect:/account");
     }
     @PostMapping("/update")
     public ModelAndView update (@ModelAttribute Account account, RedirectAttributes model) {
