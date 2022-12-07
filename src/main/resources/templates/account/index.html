@@ -5,6 +5,12 @@
     <title>BankAppWeb</title>
 </head>
 <body>
+<div id="create">
+    <form method="post" action="/account/create">
+        <input type="number" name="id" placeholder="Id клиента">
+        <input type="submit" value="Создать счет для клиента">
+    </form>
+</div>
 
 <div id="get">
     <form method="get" action="/account/getAcccountList">
@@ -16,7 +22,7 @@
 <span th:text="${msg}"></span>
 
 
-<table>
+<table border="1">
     <thead>
     <tr>
         <th> Id </th>
