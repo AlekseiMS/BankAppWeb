@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +27,8 @@ public class SecurityConfiguration {
 
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .antMatchers("/","/login").permitAll()//,"/client/**" попробовать зайти и создать пароль и дб
+                        .antMatchers("/","/login", "/client/**","/css/**").permitAll()//,"/client/**" попробовать зайти и создать пароль и дб
+                        .antMatchers("/", "/login/**", "/css/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -36,7 +38,7 @@ public class SecurityConfiguration {
                         .passwordParameter("passwotd")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout(LogoutConfigurer::permitAll);
 
         return http.build();
     }
